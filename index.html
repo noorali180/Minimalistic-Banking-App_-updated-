@@ -12,7 +12,7 @@
     <title>The Bankist</title>
   </head>
   <body>
-    <section class="app">
+    <section class="app ">
 
       <!-- TOP NAVIGATION -->
       <nav>
@@ -30,7 +30,7 @@
           <div>
             <p class="balance_label">Current balance</p>
             <p class="balance_date">
-              As of <span class="date">05/03/2037</span>
+              As of - <span class="date">05/03/2037</span>
             </p>
           </div>
           <div class="transaction_message"><p class="main_msg">*error</p></div>
@@ -112,14 +112,14 @@
         <img src="logo.png" alt="logo" class="bank_logo">
   
         <!-- LOGIN PAGE -->
-        <div class="login_page ">
+        <div class="login_page">
           <div class="page_replaceable">
             <h3 class="page_welcome">Login to get started!</h3>
             <form class="iform">
               <h1>Log In</h1>
               <input type="text" placeholder="USER" class="input login_input-user">
               <input type="password" placeholder="PIN" maxlength="4" class="input login_input-pin">
-              <div class="i"><p class="message ilogin_message">incorrect</p></div>
+              <div class="i"><p class="message ilogin_message"></p></div>
               <button class="btn login_btn">&rarr;</button>
               <p>Don't have an account?<span class="anchor page_signup">_sign_up!</span></p> 
             </form>
@@ -132,10 +132,10 @@
             <h3 class="page_welcome">Signup to get started!</h3>
             <form class="iform">
               <h1>Sign Up</h1>
-              <input type="text" placeholder="USER" class="input login_input-user">
-              <input type="password" placeholder="PIN" maxlength="4" class="input login_input-pin">
-              <input type="password" placeholder="confirm PIN" maxlength="4" class="input login_input-cnfrmpin">
-              <div class="i"><p class="message ilogin_message">incorrect</p></div>
+              <input type="text" placeholder="USER" class="input signup_input-user">
+              <input type="password" placeholder="PIN" maxlength="4" class="input signup_input-pin">
+              <input type="password" placeholder="confirm PIN" maxlength="4" class="input signup_input-confirmpin">
+              <div class="i"><p class="message isignup_message"></p></div>
               <button class="btn signup_btn">&rarr;</button>
               <p>Already have an account?<span class="anchor page_login">_log_in!</span></p> 
             </form>
