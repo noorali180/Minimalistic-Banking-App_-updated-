@@ -51,6 +51,7 @@ const loginClick = document.querySelector('.page_login');
 // MESSAGES
 const signUpMessage = document.querySelector('.isignup_message');
 const loginMessage = document.querySelector('.ilogin_message');
+const transactionMessage = document.querySelector('.main_msg');
 
 // PAGES
 const initialPage = document.querySelector('.initial_main');
@@ -60,18 +61,18 @@ const signupPage = document.querySelector('.signup_page');
 // x----x----x----x----x----x----x----x----x-----x-----x-----x-----x-----x-----x-----x-----x
 const account1 = {
     owner: 'Noor Ali',
-    movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+    movements: [200, 450, -400, 3000, -650, -130, 70, 1300], 
     movementsDates: [
         "2021-11-14T21:15:17.178Z",
-        "2021-11-15T07:22:02.383Z",
-        "2021-11-16T09:15:04.904Z",
-        "2021-11-17T10:17:24.185Z",
-        "2021-11-18T14:11:59.604Z",
-        "2021-12-08T17:01:17.194Z",
-        "2021-12-09T23:36:17.929Z",
-        "2021-12-10T10:51:36.790Z",
+        "2021-11-07T07:22:02.383Z",
+        "2021-11-08T09:15:04.904Z",
+        "2021-11-09T10:17:24.185Z",
+        "2021-12-10T14:04:22.604Z",
+        "2021-12-11T17:01:17.194Z",
+        "2021-12-12T23:36:17.929Z",
+        "2021-12-13T10:51:36.790Z",
     ],
-    deposites: [200, 450, 3000, 70, 1300],
+    deposites: [200, 450, 3000, 70, 1300], 
     depositeDates: [
         "2021-11-14T21:15:17.178Z",
         "2021-11-15T07:22:02.383Z",
@@ -79,7 +80,7 @@ const account1 = {
         "2021-11-20T23:36:17.929Z",
         "2021-11-21T10:51:36.790Z",
     ],
-    withdraws: [-400, -650, -130],
+    withdraws: [-400, -650, -130], 
     withdrawDates: [
         "2021-11-16T09:15:04.904Z",
         "2021-11-18T14:11:59.604Z",
@@ -91,9 +92,42 @@ const account1 = {
     username: 'na',
 };
 
-// const accounts = [account1];
+const account2 = {
+    owner: 'Mumtaz Ali',
+    movements: [], // 200, 450, -400, 3000, -650, -130, 70, 1300
+    movementsDates: [
+        "2021-11-14T21:15:17.178Z",
+        "2021-11-15T07:22:02.383Z",
+        "2021-11-16T09:15:04.904Z",
+        "2021-11-17T10:17:24.185Z",
+        "2021-11-18T14:11:59.604Z",
+        "2021-12-08T17:01:17.194Z",
+        "2021-12-09T23:36:17.929Z",
+        "2021-12-10T10:51:36.790Z",
+    ],
+    deposites: [], //200, 450, 3000, 70, 1300
+    depositeDates: [
+        "2021-11-14T21:15:17.178Z",
+        "2021-11-15T07:22:02.383Z",
+        "2021-11-17T10:17:24.185Z",
+        "2021-11-20T23:36:17.929Z",
+        "2021-11-21T10:51:36.790Z",
+    ],
+    withdraws: [], //-400, -650, -130
+    withdrawDates: [
+        "2021-11-16T09:15:04.904Z",
+        "2021-11-18T14:11:59.604Z",
+        "2021-11-19T17:01:17.194Z",
+    ],
+    currency: "USD",
+    pin: 2222,
+    locale: 'en-US',
+    username: 'ma',
+};
+
+const accounts = [account1, account2];
 // localStorage.setItem("accounts",JSON.stringify(accounts));
-const accounts = JSON.parse(localStorage.getItem('accounts'));
+// const accounts = JSON.parse(localStorage.getItem('accounts'));
 let currentAccount = account1, currentAccountIndex;
 
 // FUNCTIONALITIES...
@@ -128,7 +162,6 @@ const createUserName = function(userName){
 
 //----------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------
-
 // internationalizing numbers...
 const intlNumbers = function(locale, number){
     const intlNumber = new Intl.NumberFormat(locale, {
@@ -177,23 +210,23 @@ const calcAndDisplayBalance = function(account){
 
 // display movements...
 const displayMovements = function(account, sorted = false){
-    containerMovements.innerHTML = '';
+    if(account.movements.length !== 0){
+        containerMovements.innerHTML = '';
 
-    const movements = sorted ? account.movements.slice().sort((a, b) => a - b) : account.movements;
+        const movements = sorted ? account.movements.slice().sort((a, b) => a - b) : account.movements;
 
-    movements.forEach((mov, i) => {
-        let type = mov > 0 ? 'deposit' : 'withdrawal';
-
-        const html = `
-        <div class="movements_row">
-            <div class="movements_type movements_type-${type}">${i+1} ${type}</div>
-            <div class="movements_date">${sorted ? ' ' : intlMovementsDate(account.locale, account.movementsDates[i])}</div>
-            <div class="movements_value">${intlNumbers(account.locale, Math.abs(mov))}</div>
-          </div>
-        `;
-
-        containerMovements.insertAdjacentHTML('afterbegin', html);
-    });
+        movements.forEach((mov, i) => {
+            let type = mov > 0 ? 'deposit' : 'withdrawal';
+            const html = `
+            <div class="movements_row">
+                <div class="movements_type movements_type-${type}">${i+1} ${type}</div>
+                <div class="movements_date">${sorted ? ' ' : intlMovementsDate(account.locale, account.movementsDates[i])}</div>
+                <div class="movements_value">${intlNumbers(account.locale, Math.abs(mov))}</div>
+            </div>
+            `;
+            containerMovements.insertAdjacentHTML('afterbegin', html);
+        });
+    }
 }
 
 // calculate and display summary...
@@ -207,15 +240,38 @@ const calcAndDisplaySummary = function(account){
     summaryInterest.textContent = intlNumbers(account.locale, totalInterest);
 }
 
-calcAndDisplayBalance(currentAccount);
-displayMovements(currentAccount);
-calcAndDisplaySummary(currentAccount);
-
 // update UI functionality...
 const updateUI = function(account){
     calcAndDisplayBalance(account);
     displayMovements(account);
     calcAndDisplaySummary(account);
+}
+
+const logout = function(){
+    containerApp.style.opacity = 0.5;
+
+    setTimeout(() => {
+        containerApp.style.opacity = 0;
+    }, 1000);
+
+    setTimeout(() => {
+        containerApp.classList.add('hidden');
+        initialPage.classList.remove('hidden');
+    }, 3000);
+}
+
+const login = function(){
+    containerApp.classList.remove('hidden');
+    initialPage.classList.add('hidden');
+    loginPage.classList.remove('hidden');
+    signupPage.classList.add('hidden');
+
+    setTimeout(() => {
+        containerApp.style.opacity = 0.5;
+    }, 500);
+    setTimeout(() => {
+        containerApp.style.opacity = 1;
+    }, 3000);
 }
 
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -254,15 +310,15 @@ signupBtn.addEventListener('click', function(e){
             locale: 'en-US',
             username: userName,
         });
+
+        //FIXME:
         // updateLocalStorage(accounts);
+
         currentAccount = accounts.find(acc => acc.username === userName && acc.pin === pin);
         currentAccountIndex = accounts.findIndex(acc => acc.username === userName && acc.pin === pin);
 
         updateUI(currentAccount);
-        
-        initialPage.classList.add('hidden');
-        loginPage.classList.remove('hidden');
-        signupPage.classList.add('hidden');
+        login();
     }
     signupUserInput.value = signupPinInput.value = signupCPinInput.value = '';
     signupUserInput.blur();
@@ -286,9 +342,11 @@ loginBtn.addEventListener('click', function(e){
     else if(currentAccount.pin != pin) createMessage(loginMessage, '*incorrect PIN.');
     else{
         updateUI(currentAccount);
-
-        initialPage.classList.add('hidden');
+        login();
     }
+    loginUserInput.value = loginPinInput.value = '';
+    loginUserInput.blur();
+    loginPinInput.blur();
 });
 
 // TOGGLING B/W SIGNUP AND LOGIN PAGES
@@ -302,4 +360,100 @@ sortBtn.addEventListener('click', function(e){
 
     displayMovements(currentAccount, sorted);
     sorted = !sorted;
+})
+
+
+// TRASNFER AMOUNT FUNCTIONALITY
+transferBtn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    const amount = +transferAmountInput.value;
+    const userName = transferUserInput.value;
+
+    const isUserExist = accounts.find(acc => userName === acc.username);
+
+    if(amount === 0 || userName === '') createMessage(transactionMessage, '*Don\'t leave any field empty.');
+    else if(!isUserExist) createMessage(transactionMessage, '*User not found.');
+    else if(isUserExist.username === currentAccount.username) createMessage(transactionMessage, '*Cannot transfer money to the same account.');
+    else if(amount < 0) createMessage(transactionMessage, '*Please enter a valid amount.');
+    else if(amount > currentAccount.movements.reduce((accum, mov) => accum + mov, 0)) createMessage(transactionMessage, '*Don\'t have enough balance :(');
+    else{
+        const date = new Date();
+
+        currentAccount.movements.push(-amount);
+        currentAccount.movementsDates.push(date.toISOString());
+
+        currentAccount.withdraws.push(-amount);
+        currentAccount.withdrawDates.push(date.toISOString());
+
+        isUserExist.movements.push(amount);
+        isUserExist.movementsDates.push(date.toISOString());
+
+        isUserExist.deposites.push(amount);
+        isUserExist.depositeDates.push(date.toISOString());
+        
+        // FIXME:
+        // updateLocalStorage(accounts);
+
+        updateUI(currentAccount);
+    }
+
+        transferUserInput.value = transferAmountInput.value = '';
+        transferUserInput.blur();
+        transferAmountInput.blur();
+})
+
+// LOAN FUNCTIONALITY
+loanBtn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    const amount = +loanAmountInput.value;
+
+    if(amount <= 0) createMessage(transactionMessage, '*Please enter a valid amount');
+    else if(currentAccount.movements.some(mov => mov >= amount * 0.1)) createMessage(transactionMessage, '*Not eligible for loan :(');
+    else{
+        const date = new Date();
+
+        setTimeout(() => {
+            currentAccount.movements.push(amount);
+            currentAccount.movementsDates.push(date.toISOString());
+
+            currentAccount.deposites.push(amount);
+            currentAccount.depositeDates.push(date.toISOString());
+
+            // FIXME:
+            // udpateLocalStorage(accounts);
+
+            updateUI(currentAccount);
+        }, 2000)
+    }
+    loanAmountInput.value = '';
+    loanAmountInput.blur();
+})
+
+// CLOSE FUNCTIONALITY
+closeBtn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    const user = closeUserInput.value;
+    const cnfirmPin = +closePinInput.value;
+
+    if(user === '' || cnfirmPin === 0) createMessage(transactionMessage, '*Don\'t leave any field empty.');
+    else if(user !== currentAccount.username) createMessage(transactionMessage, '*User not found.');
+    else if(cnfirmPin !== currentAccount.pin) createMessage(transactionMessage, '*Please enter a correct PIN.');
+    else{
+        const confirmation = confirm('Do you really want to close your account permanently?');
+        if(confirmation) {
+            accounts.splice(currentAccountIndex, 1);
+
+            // FIXME: 
+            // updateLocalStorage(accounts);
+
+            logout();
+            
+        }
+    }
+    closeUserInput.value = closePinInput.value = '';
+    closeUserInput.blur();
+    closePinInput.blur();
 })

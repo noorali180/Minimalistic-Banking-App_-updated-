@@ -12,7 +12,7 @@
     <title>The Bankist</title>
   </head>
   <body>
-    <section class="app ">
+    <section class="app hidden">
 
       <!-- TOP NAVIGATION -->
       <nav>
@@ -33,13 +33,13 @@
               As of - <span class="date">05/03/2037</span>
             </p>
           </div>
-          <div class="transaction_message"><p class="main_msg">*error</p></div>
-          <p class="balance_value">0000€</p>
+          <div class="transaction_message"><p class="main_msg"></p></div>
+          <p class="balance_value">$0000</p>
         </div>
 
         <!-- MOVEMENTS -->
         <div class="movements">
-          <div class="movements_row">
+          <!-- <div class="movements_row">
             <div class="movements_type movements_type-deposit">2 deposit</div>
             <div class="movements_date">3 days ago</div>
             <div class="movements_value">4 000€</div>
@@ -50,17 +50,21 @@
             </div>
             <div class="movements_date">24/01/2037</div>
             <div class="movements_value">-378€</div>
+          </div> -->
+
+          <div class="empty_transaction">
+            <h1>Get started, with<br> your 1st transaction <br> :)</h1>
           </div>
         </div>
 
         <!-- SUMMARY -->
         <div class="summary">
           <p class="summary_label">In</p>
-          <p class="summary_value summary_value-in">0000€</p>
+          <p class="summary_value summary_value-in">$0000</p>
           <p class="summary_label">Out</p>
-          <p class="summary_value summary_value-out">0000€</p>
+          <p class="summary_value summary_value-out">$0000</p>
           <p class="summary_label">Interest</p>
-          <p class="summary_value summary_value-interest">0000€</p>
+          <p class="summary_value summary_value-interest">$0000</p>
           <button class="btn_sort">&downarrow; SORT</button>
         </div>
 
@@ -105,7 +109,7 @@
       </main>
     </section>
 
-    <section class="initial_main hidden">
+    <section class="initial_main">
       <div class="initial">
   
         <h1 class="bank_name">The Bankist</h1>

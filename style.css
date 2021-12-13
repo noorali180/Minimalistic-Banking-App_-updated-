@@ -163,7 +163,7 @@ body {
 
 /*  */
 .app{
-  opacity: 1;
+  opacity: 0;
 }
 
 /* Navbar */
@@ -229,6 +229,28 @@ nav {
   background-color: #fff;
   border-radius: 1rem;
   overflow: scroll;
+
+  position: relative;
+}
+
+.empty_transaction{
+  padding: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty_transaction h1{
+  font-size: 30px;
+  text-align: center;
+  color: #888;
+  font-weight: 600;
 }
   
 .movements_row {
