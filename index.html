@@ -8,23 +8,27 @@
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="style.css" />
     <title>The Bankist</title>
   </head>
   <body>
-    <section class="app hidden">
+    <section class="app ">
 
       <!-- TOP NAVIGATION -->
       <nav>
         <p class="welcome">Log in to get started</p>
         <img src="logo.png" alt="Logo" class="logo" />
-        <form class="login">
-          
-        </form>
+        <div>
+          <button class="nav_btn dashboard_btn" title="dashboard">Dashboard</button>
+          <button class="nav_btn history_btn" title="history">History</button>
+          <button class="nav_btn logout_btn" title="logout"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
       </nav>
 
       <!-- DASHBOARD -->
-      <main class="dashboard">
+      <main class="dashboard ">
         <!-- BALANCE -->
         <div class="balance">
           <div>
@@ -52,9 +56,9 @@
             <div class="movements_value">-378€</div>
           </div> -->
 
-          <div class="empty_transaction">
+          <!-- <div class="empty_transaction">
             <h1>Get started, with<br> your 1st transaction <br> :)</h1>
-          </div>
+          </div> -->
         </div>
 
         <!-- SUMMARY -->
@@ -109,7 +113,7 @@
       </main>
     </section>
 
-    <section class="initial_main">
+    <section class="initial_main hidden">
       <div class="initial">
   
         <h1 class="bank_name">The Bankist</h1>

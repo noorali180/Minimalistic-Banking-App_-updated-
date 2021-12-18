@@ -1,7 +1,5 @@
 'use strict'
 
-
-
 // Selecting Elements...
 
 // LABELS.
@@ -19,6 +17,9 @@ const labelTimer = document.querySelector('.timer');
 // CONTAINERS
 const containerApp = document.querySelector('.app');
 const containerMovements = document.querySelector('.movements');
+
+const containerDashboard = document.querySelector('.dashboard');
+const containerHistory = document.querySelector('.history');
 
 // INPUTS
 const loginUserInput = document.querySelector('.login_input-user');
@@ -38,6 +39,7 @@ const closePinInput = document.querySelector('.form_input-pin');
 
 // BUTTONS
 const loginBtn = document.querySelector('.login_btn');
+const logoutBtn = document.querySelector('.logout_btn');
 const signupBtn = document.querySelector('.signup_btn');
 const transferBtn = document.querySelector('.form_btn-transfer');
 const loanBtn = document.querySelector('.form_btn-loan');
@@ -47,6 +49,9 @@ const sortBtn = document.querySelector('.btn_sort');
 
 const signupClick = document.querySelector('.page_signup');
 const loginClick = document.querySelector('.page_login');
+
+const dashboardBtn = document.querySelector('.dashboard_btn');
+const historyBtn = document.querySelector('.history_btn');
 
 // MESSAGES
 const signUpMessage = document.querySelector('.isignup_message');
@@ -125,18 +130,13 @@ const account2 = {
     username: 'ma',
 };
 
+// FIXME: 
 const accounts = [account1, account2];
 // localStorage.setItem("accounts",JSON.stringify(accounts));
 // const accounts = JSON.parse(localStorage.getItem('accounts'));
-let currentAccount = account1, currentAccountIndex;
+let currentAccount = account1, currentAccountIndex, timer;
 
 // FUNCTIONALITIES...
-
-// toggle b/w signin and signup...
-const toggle = function(){
-    loginPage.classList.toggle('hidden');
-    signupPage.classList.toggle('hidden');
-}
 
 // updating local storage...
 const updateLocalStorage = function(accounts){
@@ -227,6 +227,16 @@ const displayMovements = function(account, sorted = false){
             containerMovements.insertAdjacentHTML('afterbegin', html);
         });
     }
+    else{
+        containerMovements.innerHTML = '';
+
+        const html = `
+        <div class="empty_transaction">
+            <h1>Get started, with<br> your 1st transaction <br> :)</h1>
+        </div>
+        `;
+        containerMovements.insertAdjacentHTML('afterbegin', html);
+    }
 }
 
 // calculate and display summary...
@@ -247,8 +257,12 @@ const updateUI = function(account){
     calcAndDisplaySummary(account);
 }
 
+updateUI(currentAccount);
+
 const logout = function(){
     containerApp.style.opacity = 0.5;
+    loginPage.style.opacity = 1;
+    signupPage.style.opacity = 0;
 
     setTimeout(() => {
         containerApp.style.opacity = 0;
@@ -257,21 +271,54 @@ const logout = function(){
     setTimeout(() => {
         containerApp.classList.add('hidden');
         initialPage.classList.remove('hidden');
+    }, 2000);
+    
+    setTimeout(() => {
+        initialPage.style.opacity = 1;
     }, 3000);
 }
 
 const login = function(){
-    containerApp.classList.remove('hidden');
-    initialPage.classList.add('hidden');
-    loginPage.classList.remove('hidden');
-    signupPage.classList.add('hidden');
+    initialPage.style.opacity = 0;
+    loginPage.style.opacity = 1;
+    signupPage.style.opacity = 0;
+
+    setTimeout(() => {
+        initialPage.classList.add('hidden');
+        signupPage.classList.add('hidden');
+        loginPage.classList.remove('hidden');
+        containerApp.classList.remove('hidden');
+    }, 500)
 
     setTimeout(() => {
         containerApp.style.opacity = 0.5;
-    }, 500);
+    }, 1000);
+
     setTimeout(() => {
         containerApp.style.opacity = 1;
     }, 3000);
+}
+
+// LOGOUT TIMER
+const startLogoutTimer = function(){
+    let time = 300; // 5 minutes...
+    
+    const rapid = function(){
+        const min = String(Math.trunc(time / 60)).padStart(2, 0);
+        const sec = String(time % 60).padStart(2, 0);
+
+        labelTimer.textContent = `${min}:${sec}`;
+
+        if(time === 0) {
+            clearInterval(timer);
+            logout();
+        }
+        time--;
+    }
+    rapid();
+    const timer = setInterval(rapid, 1000);
+
+    return timer;
 }
 
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -319,6 +366,9 @@ signupBtn.addEventListener('click', function(e){
 
         updateUI(currentAccount);
         login();
+
+        if(timer) clearInterval(timer);
+        timer = startLogoutTimer();
     }
     signupUserInput.value = signupPinInput.value = signupCPinInput.value = '';
     signupUserInput.blur();
@@ -336,22 +386,59 @@ loginBtn.addEventListener('click', function(e){
     currentAccount = accounts.find(acc => acc.username === userName);
     currentAccountIndex = accounts.findIndex(acc => acc.username === userName);
 
-
     if(userName === '' || pin === 0) createMessage(loginMessage, '*Dont leave any field empty.');
     else if(!currentAccount) createMessage(loginMessage, '*User not found.');
     else if(currentAccount.pin != pin) createMessage(loginMessage, '*incorrect PIN.');
     else{
         updateUI(currentAccount);
         login();
+
+        if(timer) clearInterval(timer);
+        timer = startLogoutTimer();
     }
     loginUserInput.value = loginPinInput.value = '';
     loginUserInput.blur();
     loginPinInput.blur();
 });
 
+// LOGOUT FUNCTIONALITY
+logoutBtn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    logout();
+});
+
 // TOGGLING B/W SIGNUP AND LOGIN PAGES
-signupClick.addEventListener('click', toggle);
-loginClick.addEventListener('click', toggle);
+signupClick.addEventListener('click', function(e){
+    e.preventDefault();
+
+    loginPage.style.opacity = 0;
+
+    setTimeout(() => {
+        loginPage.classList.add('hidden');
+        signupPage.classList.remove('hidden');
+    }, 200);
+
+    setTimeout(() => {
+        signupPage.style.opacity = 1;
+    }, 600);
+});
+
+loginClick.addEventListener('click', function(e){
+    e.preventDefault();
+
+    signupPage.style.opacity = 0;
+
+    setTimeout(() => {
+        signupPage.classList.add('hidden');
+        loginPage.classList.remove('hidden');
+    }, 200);
+
+    setTimeout(() => {
+        loginPage.style.opacity = 1;
+    }, 600);
+});
+// ----x------x--------x--------x--------x--------x---------x---------x----//
 
 // SORT BUTTON FUNCTIONALITY
 let sorted = true;
@@ -360,7 +447,7 @@ sortBtn.addEventListener('click', function(e){
 
     displayMovements(currentAccount, sorted);
     sorted = !sorted;
-})
+});
 
 
 // TRASNFER AMOUNT FUNCTIONALITY
@@ -401,7 +488,7 @@ transferBtn.addEventListener('click', function(e){
         transferUserInput.value = transferAmountInput.value = '';
         transferUserInput.blur();
         transferAmountInput.blur();
-})
+});
 
 // LOAN FUNCTIONALITY
 loanBtn.addEventListener('click', function(e){
@@ -429,7 +516,7 @@ loanBtn.addEventListener('click', function(e){
     }
     loanAmountInput.value = '';
     loanAmountInput.blur();
-})
+});
 
 // CLOSE FUNCTIONALITY
 closeBtn.addEventListener('click', function(e){
@@ -450,10 +537,16 @@ closeBtn.addEventListener('click', function(e){
             // updateLocalStorage(accounts);
 
             logout();
-            
         }
     }
     closeUserInput.value = closePinInput.value = '';
     closeUserInput.blur();
     closePinInput.blur();
+});
+
+// DASHBOARD BUTTON FUNCTIONALITY
+dashboardBtn.addEventListener('click', function(e){
+    e.preventDefault();
+
+    containerDashboard.classList.remove('hidden');
 })
