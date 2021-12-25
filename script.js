@@ -4,6 +4,7 @@
 
 // LABELS.
 const welcome = document.querySelector('.welcome');
+const labelUsername = document.querySelector('.username');
 
 const balanceLabel = document.querySelector('.balance_value');
 const balanceDate = document.querySelector('.date');
@@ -195,6 +196,7 @@ const intlMovementsDate = function(locale, date){
 // calculate and display total balance...
 const calcAndDisplayBalance = function(account){
     welcome.textContent = `Good Day, ${account.owner} ! 😊`;
+    labelUsername.textContent = `"${account.username}"`;
 
     const totalBalance = account.movements.reduce((accum, mov) => accum + mov, 0);
     balanceLabel.textContent = intlNumbers(account.locale, totalBalance);

@@ -1,14 +1,14 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
 }
-  
+
 html {
   font-size: 60.33%;
   box-sizing: border-box;
 }
-  
+
 body {
   font-family: "Poppins", sans-serif;
   color: #444;
@@ -18,7 +18,7 @@ body {
 }
 
 /* Landing Page */
-.initial{
+.initial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,12 +26,12 @@ body {
   margin-top: 40px;
 }
 
-.initial_main{
+.initial_main {
   opacity: 1;
-  transition: opacity .5s ease;
+  transition: opacity 0.5s ease;
 }
 
-.bank_name{
+.bank_name {
   font-weight: 800;
   font-size: 18px;
   text-transform: uppercase;
@@ -41,29 +41,29 @@ body {
   letter-spacing: 2px;
 }
 
-.bank_logo{
+.bank_logo {
   width: 70px;
   margin-bottom: 8.5rem;
 }
 
-.page_replaceable{
+.page_replaceable {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.page_welcome{
+.page_welcome {
   font-size: 2.2rem;
   color: #444444;
 }
 
-.iform{
+.iform {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #F3F3F3;
+  background: #f3f3f3;
   box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
   width: 50rem;
@@ -71,17 +71,17 @@ body {
   margin: 25px 0;
 }
 
-.iform h1{
+.iform h1 {
   font-size: 2.2rem;
   font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 3rem;
 }
-  
+
 .input {
-  border: 1px solid rgba(187, 187, 187, 0.8);;
+  border: 1px solid rgba(187, 187, 187, 0.8);
   padding: 1rem 2rem;
-  margin: .4rem 0;
+  margin: 0.4rem 0;
   font-size: 1.5rem;
   font-family: inherit;
   text-align: center;
@@ -91,41 +91,41 @@ body {
   outline: none;
 }
 
-.message{
+.message {
   color: red;
   font-size: 1.3rem;
   font-style: italic;
   text-align: left;
 }
 
-.i{
+.i {
   width: 65%;
   min-height: 18px;
 }
 
-.iform > p{
+.iform > p {
   font-size: 1.3rem;
   color: black;
   margin: 5.5rem 0 0 0;
 }
 
-.iform > p span{
+.iform > p span {
   color: blue;
   font-style: italic;
   font-size: 1.4rem;
   cursor: pointer;
 }
 
-.iform > p span:hover{
+.iform > p span:hover {
   color: purple;
 }
- 
+
 .input::placeholder {
   color: #bbb;
 }
-  
+
 .btn {
-  border: 2px solid rgba(187, 187, 187, 0.8);;
+  border: 2px solid rgba(187, 187, 187, 0.8);
   border-radius: 50%;
   background: #fff;
   padding: 6px 8px;
@@ -140,10 +140,10 @@ body {
   right: 27%;
 }
 
-.signup_btn{
+.signup_btn {
   top: 66.5%;
 }
-  
+
 .lbtn:hover,
 .btn:focus,
 .btn_sort:hover,
@@ -152,64 +152,85 @@ body {
   color: #777;
 }
 
-.transaction_message{
+.transaction_message {
   min-height: 20px;
 }
 
-.signup_page{
+.signup_page {
   opacity: 0;
-  transition: opacity .5s ease;
+  transition: opacity 0.5s ease;
 }
 
-.login_page{
+.login_page {
   opacity: 1;
-  transition: opacity .5s ease;
+  transition: opacity 0.5s ease;
 }
 
-.main_msg{
+.main_msg {
   color: red;
   font-size: 16px;
   font-style: italic;
 }
 
 /*  */
-.app{
+.app {
   opacity: 1;
-  transition: opacity .5s ease;
+  transition: opacity 0.5s ease;
 }
 
 /* Navbar */
-  
+
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
 }
-  
+
+.wll {
+  display: flex;
+  flex-direction: column;
+}
+
+.show_username {
+  font-size: 1.4rem;
+  color: #888;
+}
+
+.arrow {
+  letter-spacing: -6px;
+  font-size: 1.5rem;
+}
+
+.username {
+  margin-left: 5px;
+  font-size: 1.6rem;
+  color: #444;
+}
+
 .welcome {
   font-size: 1.9rem;
   font-weight: 500;
 }
-  
+
 .logo {
   height: 5.25rem;
 }
 
-nav div{
+nav div {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.nav_btn{
+.nav_btn {
   outline: none;
   border: none;
   border-radius: 1rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   padding: 1.2rem 1.8rem;
-  margin: 0 .4rem;
+  margin: 0 0.4rem;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -223,24 +244,22 @@ nav div{
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
 }
 
-.logout_btn{
+.logout_btn {
   padding: 0;
   margin-left: 2.5rem;
-  margin-right: 4.5rem;
   color: #444;
   font-size: 25px;
   box-shadow: none;
 }
 
-.dashboard_btn{
+.dashboard_btn {
   background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
 
-.history_btn{
+.history_btn {
   background-image: linear-gradient(to top left, #e52a5a, #ff585f);
 }
 
-  
 /* Dashboard */
 .dashboard {
   position: relative;
@@ -255,7 +274,7 @@ nav div{
   opacity: 1;
   transition: all 1s;
 }
-  
+
 .balance {
   grid-column: 1 / span 2;
   display: flex;
@@ -263,23 +282,23 @@ nav div{
   justify-content: space-between;
   margin-bottom: 2rem;
 }
-  
+
 .balance_label {
   font-size: 2.2rem;
   font-weight: 500;
   margin-bottom: -0.2rem;
 }
-  
+
 .balance_date {
   font-size: 1.4rem;
   color: #888;
 }
-  
+
 .balance_value {
   font-size: 4.5rem;
   font-weight: 400;
 }
-  
+
 /* MOVEMENTS */
 .movements {
   grid-row: 2 / span 3;
@@ -291,7 +310,7 @@ nav div{
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
 }
 
-.empty_transaction{
+.empty_transaction {
   padding: 50px;
   position: absolute;
   top: 0;
@@ -304,20 +323,20 @@ nav div{
   justify-content: center;
 }
 
-.empty_transaction h1{
+.empty_transaction h1 {
   font-size: 30px;
   text-align: center;
   color: #888;
   font-weight: 600;
 }
-  
+
 .movements_row {
   padding: 2.25rem 4rem;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #eee;
 }
-  
+
 .movements_type {
   font-size: 1.1rem;
   text-transform: uppercase;
@@ -327,27 +346,27 @@ nav div{
   border-radius: 10rem;
   margin-right: 2rem;
 }
-  
+
 .movements_date {
   font-size: 1.1rem;
   text-transform: uppercase;
   font-weight: 500;
   color: #666;
 }
-  
+
 .movements_type-deposit {
   background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
-  
+
 .movements_type-withdrawal {
   background-image: linear-gradient(to top left, #e52a5a, #ff585f);
 }
-  
+
 .movements_value {
   font-size: 1.7rem;
   margin-left: auto;
 }
-  
+
 /* SUMMARY */
 .summary {
   grid-row: 5;
@@ -356,28 +375,28 @@ nav div{
   padding: 0 0.3rem;
   margin-top: 1rem;
 }
-  
+/* FIXME: */
 .summary_label {
   font-size: 1.2rem;
   font-weight: 500;
   text-transform: uppercase;
   margin-right: 0.8rem;
 }
-  
+
 .summary_value {
   font-size: 2.2rem;
   margin-right: 2.5rem;
 }
-  
+
 .summary_value-in,
 .summary_value-interest {
   color: #66c873;
 }
-  
+
 .summary_value-out {
   color: #f5465d;
 }
-  
+
 .btn_sort {
   margin-left: auto;
   border: none;
@@ -386,7 +405,7 @@ nav div{
   font-weight: 500;
   cursor: pointer;
 }
-  
+
 /* OPERATIONS */
 .operation {
   border-radius: 1rem;
@@ -395,33 +414,33 @@ nav div{
 
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
 }
-  
+
 .operation_transfer {
   background-image: linear-gradient(to top left, #ffb003, #ffcb03);
 }
-  
+
 .operation_loan {
   background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
-  
+
 .operation_close {
   background-image: linear-gradient(to top left, #e52a5a, #ff585f);
 }
-  
+
 h2 {
   margin-bottom: 1.5rem;
   font-size: 1.7rem;
   font-weight: 600;
   color: #333;
 }
-  
+
 .form {
   display: grid;
   grid-template-columns: 2.5fr 2.5fr 1fr;
   grid-template-rows: auto auto;
   gap: 0.4rem 1rem;
 }
-  
+
 /* Exceptions for interst */
 .form.form_loan {
   grid-template-columns: 2.5fr 1fr 2.5fr;
@@ -430,7 +449,7 @@ h2 {
   grid-row: 2;
 }
 /* End exceptions */
-  
+
 .form_input {
   width: 100%;
   border: none;
@@ -443,17 +462,17 @@ h2 {
   border-radius: 0.7rem;
   transition: all 0.3s;
 }
-  
+
 .form_input:focus {
   outline: none;
   background-color: rgba(255, 255, 255, 0.6);
 }
-  
+
 .form_label {
   font-size: 1.3rem;
   text-align: center;
 }
-  
+
 .form_btn {
   border: none;
   border-radius: 0.7rem;
@@ -462,23 +481,101 @@ h2 {
   cursor: pointer;
   transition: all 0.3s;
 }
-  
+
 .form_btn:focus {
   outline: none;
   background-color: rgba(255, 255, 255, 0.8);
 }
-  
+
 .logout_timer {
   padding: 0 0.3rem;
   margin-top: 1.9rem;
   text-align: right;
   font-size: 1.25rem;
 }
-  
+
+/* HISTORY */
+.history {
+  position: relative;
+  max-width: 100rem;
+  margin: 4rem auto;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto repeat(3, 15rem) auto;
+  gap: 3rem;
+
+  /* NOTE This creates the fade in/out animation */
+  opacity: 1;
+  transition: all 1s;
+}
+
+.history_label {
+  grid-column: 1 / span 2;
+  font-size: 3.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 25px;
+}
+
+.history_deposits,
+.history_withdrawals{
+  grid-row: 2 / span 3;
+}
+
+.history_deposits #history_deposits_movements,
+.history_withdrawals #history_withdrawals_movements{
+  width: 100%;
+  height: 95%;
+}
+
+.history_deposits_label,
+.history_withdrawals_label {
+  margin: 0.5rem 2rem;
+  padding: 0;
+  font-size: 2.2rem;
+  font-weight: 400;
+}
+
+.history_withdrawals_label{
+  text-align: right;
+}
+
+.history_deposits_total,
+.history_withdrawals_total{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4rem;
+  padding: 0 6rem;
+}
+
+.history_deposits_total h2,
+.history_withdrawals_total h2{
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+
+.history_deposits_total h1,
+.history_withdrawals_total h1{
+  margin: 0;
+  font-weight: 400;
+  font-size: 3.5rem;
+}
+
+.history_deposits_total_amount{
+  color: #66c873; 
+}
+
+.history_withdrawals_total_amount{
+  color: #f5465d;
+}
+
 .timer {
   font-weight: 600;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
