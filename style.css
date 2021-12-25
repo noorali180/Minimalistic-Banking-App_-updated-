@@ -505,7 +505,7 @@ h2 {
   gap: 3rem;
 
   /* NOTE This creates the fade in/out animation */
-  opacity: 1;
+  opacity: 0;
   transition: all 1s;
 }
 

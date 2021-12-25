@@ -64,6 +64,12 @@ const initialPage = document.querySelector('.initial_main');
 const loginPage = document.querySelector('.login_page');
 const signupPage = document.querySelector('.signup_page');
 
+/////
+const containerDeposits = document.querySelector('#history_deposits_movements');
+const containerWithdrawals = document.querySelector('#history_withdrawals_movements');
+const totalDeposits = document.querySelector('.history_deposits_total_amount');
+const totalWithdrawals = document.querySelector('.history_withdrawals_total_amount');
+
 // x----x----x----x----x----x----x----x----x-----x-----x-----x-----x-----x-----x-----x-----x
 const account1 = {
     owner: 'Noor Ali',
@@ -78,8 +84,8 @@ const account1 = {
         "2021-12-12T23:36:17.929Z",
         "2021-12-13T10:51:36.790Z",
     ],
-    deposites: [200, 450, 3000, 70, 1300], 
-    depositeDates: [
+    deposits: [200, 450, 3000, 70, 1300], 
+    depositDates: [
         "2021-11-14T21:15:17.178Z",
         "2021-11-15T07:22:02.383Z",
         "2021-11-17T10:17:24.185Z",
@@ -111,8 +117,8 @@ const account2 = {
         "2021-12-09T23:36:17.929Z",
         "2021-12-10T10:51:36.790Z",
     ],
-    deposites: [], //200, 450, 3000, 70, 1300
-    depositeDates: [
+    deposits: [200, 450, 3000, 70, 1300], 
+    depositDates: [
         "2021-11-14T21:15:17.178Z",
         "2021-11-15T07:22:02.383Z",
         "2021-11-17T10:17:24.185Z",
@@ -241,11 +247,74 @@ const displayMovements = function(account, sorted = false){
     }
 }
 
+// displaying history of deposits...
+const displayDepositsHistory = function(account){
+    if(account.deposits.length !== 0){
+        containerDeposits.innerHTML = '';
+
+        account.deposits.forEach((dep, i) => {
+            const html = `
+            <div class="movements_row">
+                <div class="movements_type movements_type-deposit">${i+1} deposit</div>
+                <div class="movements_date">${intlMovementsDate(account.locale, account.depositDates[i])}</div>
+                <div class="movements_value">${intlNumbers(account.locale, Math.abs(dep))}</div>
+            </div>
+            `;
+            containerDeposits.insertAdjacentHTML('afterbegin', html);
+        });
+    }
+    else{
+        containerDeposits.innerHTML = '';
+
+        const html = `
+        <div class="empty_transaction">
+            <h1>Get started, with<br> your 1st transaction <br> :)</h1>
+        </div>
+        `;
+        containerDeposits.insertAdjacentHTML('afterbegin', html);
+    }
+
+    const total = account.deposits.reduce((accum, dep) => accum + dep, 0);
+    totalDeposits.textContent = `${intlNumbers(account.locale, total)}`
+
+}
+
+// displaying history of withdrawals...
+const displayWithdrawalsHistory = function(account){
+    if(account.withdraws.length !== 0){
+        containerWithdrawals.innerHTML = '';
+
+        account.withdraws.forEach((wit, i) => {
+            const html = `
+            <div class="movements_row">
+                <div class="movements_type movements_type-withdrawal">${i+1} withdrawal</div>
+                <div class="movements_date">${intlMovementsDate(account.locale, account.withdrawDates[i])}</div>
+                <div class="movements_value">${intlNumbers(account.locale, Math.abs(wit))}</div>
+            </div>
+            `;
+            containerWithdrawals.insertAdjacentHTML('afterbegin', html);
+        });
+    }
+    else{
+        containerWithdrawals.innerHTML = '';
+
+        const html = `
+        <div class="empty_transaction">
+            <h1>Get started, with<br> your 1st transaction <br> :)</h1>
+        </div>
+        `;
+        containerWithdrawals.insertAdjacentHTML('afterbegin', html);
+    }
+
+    const total = account.withdraws.reduce((accum, wit) => accum + wit, 0);
+    totalWithdrawals.textContent = `${intlNumbers(account.locale, Math.abs(total))}`
+}
+
 // calculate and display summary...
 const calcAndDisplaySummary = function(account){
-    const totalIn = account.deposites.reduce((accum,dep) => accum + dep, 0);
+    const totalIn = account.deposits.reduce((accum,dep) => accum + dep, 0);
     const totalOut = account.withdraws.reduce((accum, wid) => accum + Math.abs(wid), 0);
-    const totalInterest = account.deposites.map(dep => (dep * 2.5) / 100).reduce((accum, int) => accum + int, 0);
+    const totalInterest = account.deposits.map(dep => (dep * 2.5) / 100).reduce((accum, int) => accum + int, 0);
 
     summaryIn.textContent = intlNumbers(account.locale, totalIn);
     summaryOut.textContent = intlNumbers(account.locale, totalOut);
@@ -257,6 +326,8 @@ const updateUI = function(account){
     calcAndDisplayBalance(account);
     displayMovements(account);
     calcAndDisplaySummary(account);
+    displayDepositsHistory(account);
+    displayWithdrawalsHistory(account);
 }
 
 updateUI(currentAccount);
@@ -273,6 +344,12 @@ const logout = function(){
     setTimeout(() => {
         containerApp.classList.add('hidden');
         initialPage.classList.remove('hidden');
+
+        containerDashboard.classList.remove('hidden');
+        containerHistory.classList.add('hidden');
+
+        containerDashboard.style.opacity = 1;
+        containerHistory.style.opacity = 0;
     }, 2000);
     
     setTimeout(() => {
@@ -478,8 +555,8 @@ transferBtn.addEventListener('click', function(e){
         isUserExist.movements.push(amount);
         isUserExist.movementsDates.push(date.toISOString());
 
-        isUserExist.deposites.push(amount);
-        isUserExist.depositeDates.push(date.toISOString());
+        isUserExist.deposits.push(amount);
+        isUserExist.depositDates.push(date.toISOString());
         
         // FIXME:
         // updateLocalStorage(accounts);
@@ -507,8 +584,8 @@ loanBtn.addEventListener('click', function(e){
             currentAccount.movements.push(amount);
             currentAccount.movementsDates.push(date.toISOString());
 
-            currentAccount.deposites.push(amount);
-            currentAccount.depositeDates.push(date.toISOString());
+            currentAccount.deposits.push(amount);
+            currentAccount.depositDates.push(date.toISOString());
 
             // FIXME:
             // udpateLocalStorage(accounts);
@@ -549,6 +626,31 @@ closeBtn.addEventListener('click', function(e){
 // DASHBOARD BUTTON FUNCTIONALITY
 dashboardBtn.addEventListener('click', function(e){
     e.preventDefault();
+    
+    containerHistory.style.opacity = 0;
 
-    containerDashboard.classList.remove('hidden');
-})
+    setTimeout(() => {
+        containerHistory.classList.add('hidden');
+        containerDashboard.classList.remove('hidden');
+    }, 500);
+
+    setTimeout(() => {
+        containerDashboard.style.opacity = 1;
+    }, 600);
+});
+
+// HISTORY BUTTON FUNCTIONALITY
+historyBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    
+    containerDashboard.style.opacity = 0;
+
+    setTimeout(() => {
+        containerDashboard.classList.add('hidden');
+        containerHistory.classList.remove('hidden');
+    }, 500);
+
+    setTimeout(() => {
+        containerHistory.style.opacity = 1;
+    }, 600);
+});
