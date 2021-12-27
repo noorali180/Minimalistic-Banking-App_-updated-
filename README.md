@@ -1,4 +1,4 @@
-# [Minimalistic-Banking-App_(Project)]()
+# [Minimalistic-Banking-App_(Project)](noorali-180.github.io/minimalistic-banking-app_-updated-/)
 
 small javascript project.
 
