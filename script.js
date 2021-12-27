@@ -64,13 +64,13 @@ const initialPage = document.querySelector('.initial_main');
 const loginPage = document.querySelector('.login_page');
 const signupPage = document.querySelector('.signup_page');
 
-/////
+// HISTORY ELEMENTS
 const containerDeposits = document.querySelector('#history_deposits_movements');
 const containerWithdrawals = document.querySelector('#history_withdrawals_movements');
 const totalDeposits = document.querySelector('.history_deposits_total_amount');
 const totalWithdrawals = document.querySelector('.history_withdrawals_total_amount');
 
-// PopUps
+// POP UPS
 const signupPop = document.querySelector('.signup_popup');
 const signupPopBtn = document.querySelector('.close_signup_popup');
 const loginPop = document.querySelector('.login_popup');
@@ -85,25 +85,25 @@ const account1 = {
         "2021-11-14T21:15:17.178Z",
         "2021-11-07T07:22:02.383Z",
         "2021-11-08T09:15:04.904Z",
-        "2021-11-09T10:17:24.185Z",
-        "2021-12-10T14:04:22.604Z",
-        "2021-12-11T17:01:17.194Z",
-        "2021-12-12T23:36:17.929Z",
-        "2021-12-13T10:51:36.790Z",
+        "2021-12-23T10:17:24.185Z",
+        "2021-12-24T14:04:22.604Z",
+        "2021-12-25T17:01:17.194Z",
+        "2021-12-26T23:36:17.929Z",
+        "2021-12-27T10:51:36.790Z",
     ],
     deposits: [200, 450, 3000, 70, 1300], 
     depositDates: [
         "2021-11-14T21:15:17.178Z",
-        "2021-11-15T07:22:02.383Z",
-        "2021-11-17T10:17:24.185Z",
-        "2021-11-20T23:36:17.929Z",
-        "2021-11-21T10:51:36.790Z",
+        "2021-11-07T07:22:02.383Z",
+        "2021-12-23T10:17:24.185Z",
+        "2021-12-26T23:36:17.929Z",
+        "2021-12-27T10:51:36.790Z",
     ],
     withdraws: [-400, -650, -130], 
     withdrawDates: [
-        "2021-11-16T09:15:04.904Z",
-        "2021-11-18T14:11:59.604Z",
-        "2021-11-19T17:01:17.194Z",
+        "2021-11-08T09:15:04.904Z",
+        "2021-12-24T14:04:22.604Z",
+        "2021-12-25T17:01:17.194Z",
     ],
     currency: "USD",
     pin: 1111,
@@ -111,48 +111,16 @@ const account1 = {
     username: 'na',
 };
 
-const account2 = {
-    owner: 'Mumtaz Ali',
-    movements: [], // 200, 450, -400, 3000, -650, -130, 70, 1300
-    movementsDates: [
-        "2021-11-14T21:15:17.178Z",
-        "2021-11-15T07:22:02.383Z",
-        "2021-11-16T09:15:04.904Z",
-        "2021-11-17T10:17:24.185Z",
-        "2021-11-18T14:11:59.604Z",
-        "2021-12-08T17:01:17.194Z",
-        "2021-12-09T23:36:17.929Z",
-        "2021-12-10T10:51:36.790Z",
-    ],
-    deposits: [200, 450, 3000, 70, 1300], 
-    depositDates: [
-        "2021-11-14T21:15:17.178Z",
-        "2021-11-15T07:22:02.383Z",
-        "2021-11-17T10:17:24.185Z",
-        "2021-11-20T23:36:17.929Z",
-        "2021-11-21T10:51:36.790Z",
-    ],
-    withdraws: [], //-400, -650, -130
-    withdrawDates: [
-        "2021-11-16T09:15:04.904Z",
-        "2021-11-18T14:11:59.604Z",
-        "2021-11-19T17:01:17.194Z",
-    ],
-    currency: "USD",
-    pin: 2222,
-    locale: 'en-US',
-    username: 'ma',
-};
-
-// FIXME: 
-const accounts = [account1, account2];
+// NOTE: below two lines of codes are for default settings...
+// const accounts = [account1];
 // localStorage.setItem("accounts",JSON.stringify(accounts));
-// const accounts = JSON.parse(localStorage.getItem('accounts'));
-let currentAccount = account1, currentAccountIndex, timer;
+
+const accounts = JSON.parse(localStorage.getItem('accounts'));
+let currentAccount, currentAccountIndex, timer;
 
 // FUNCTIONALITIES...
 
-// updating local storage...
+// update local storage...
 const updateLocalStorage = function(accounts){
     localStorage.setItem("accounts",JSON.stringify(accounts));
     accounts = JSON.parse(localStorage.getItem('accounts'));
@@ -174,18 +142,21 @@ const createUserName = function(userName){
             .join('');
 }
 
+// popUp functionality when user signup...
 const popSignup = function(){
     overlay.classList.toggle('overlay_active');
     signupPop.classList.toggle('active');
 }
 
+// popUp functionality when user login...
 const popLogin = function(){
     overlay.classList.toggle('overlay_active');
     loginPop.classList.toggle('active');
 }
 
-//----------------------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+
 // internationalizing numbers...
 const intlNumbers = function(locale, number){
     const intlNumber = new Intl.NumberFormat(locale, {
@@ -195,14 +166,12 @@ const intlNumbers = function(locale, number){
     return intlNumber;
 }
 
-// FIXME:
 // internationalizing movements dates...
 const intlMovementsDate = function(locale, date){
     const now = new Date();
     const movDate = new Date(date);
     const daysPassed = Math.round((now - movDate) / 1000 / 24 / 60 / 60);
 
-    // FIXME:
     if(daysPassed === 0) return 'Today';
     else if(daysPassed === 1) return 'Yesterday';
     else if(daysPassed === 2) return '2 days ago';
@@ -347,6 +316,9 @@ const updateUI = function(account){
     displayWithdrawalsHistory(account);
 }
 
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+
 // logout functionality...
 const logout = function(){
     containerApp.style.opacity = 0.5;
@@ -395,7 +367,7 @@ const login = function(){
     }, 3000);
 }
 
-// LOGOUT TIMER
+// LOGOUT TIMER...
 const startLogoutTimer = function(){
     let time = 300; // 5 minutes...
     
@@ -454,8 +426,7 @@ signupBtn.addEventListener('click', function(e){
             username: userName,
         });
 
-        //FIXME:
-        // updateLocalStorage(accounts);
+        updateLocalStorage(accounts);
 
         currentAccount = accounts.find(acc => acc.username === userName && acc.pin === pin);
         currentAccountIndex = accounts.findIndex(acc => acc.username === userName && acc.pin === pin);
@@ -469,9 +440,8 @@ signupBtn.addEventListener('click', function(e){
 
         if(timer) clearInterval(timer);
         timer = startLogoutTimer();
-
-        
     }
+
     signupUserInput.value = signupPinInput.value = signupCPinInput.value = '';
     signupUserInput.blur();
     signupPinInput.blur();
@@ -502,6 +472,7 @@ loginBtn.addEventListener('click', function(e){
         if(timer) clearInterval(timer);
         timer = startLogoutTimer();
     }
+
     loginUserInput.value = loginPinInput.value = '';
     loginUserInput.blur();
     loginPinInput.blur();
@@ -515,6 +486,7 @@ logoutBtn.addEventListener('click', function(e){
 });
 
 // TOGGLING B/W SIGNUP AND LOGIN PAGES
+// 1.
 signupClick.addEventListener('click', function(e){
     e.preventDefault();
 
@@ -529,7 +501,7 @@ signupClick.addEventListener('click', function(e){
         signupPage.style.opacity = 1;
     }, 600);
 });
-
+// 2.
 loginClick.addEventListener('click', function(e){
     e.preventDefault();
 
@@ -544,6 +516,7 @@ loginClick.addEventListener('click', function(e){
         loginPage.style.opacity = 1;
     }, 600);
 });
+
 // ----x------x--------x--------x--------x--------x---------x---------x----//
 
 // SORT BUTTON FUNCTIONALITY
@@ -554,7 +527,6 @@ sortBtn.addEventListener('click', function(e){
     displayMovements(currentAccount, sorted);
     sorted = !sorted;
 });
-
 
 // TRASNFER AMOUNT FUNCTIONALITY
 transferBtn.addEventListener('click', function(e){
@@ -585,8 +557,7 @@ transferBtn.addEventListener('click', function(e){
         isUserExist.deposits.push(amount);
         isUserExist.depositDates.push(date.toISOString());
         
-        // FIXME:
-        // updateLocalStorage(accounts);
+        updateLocalStorage(accounts);
 
         updateUI(currentAccount);
     }
@@ -614,12 +585,12 @@ loanBtn.addEventListener('click', function(e){
             currentAccount.deposits.push(amount);
             currentAccount.depositDates.push(date.toISOString());
 
-            // FIXME:
-            // udpateLocalStorage(accounts);
+            updateLocalStorage(accounts);
 
             updateUI(currentAccount);
         }, 2000)
     }
+
     loanAmountInput.value = '';
     loanAmountInput.blur();
 });
@@ -639,12 +610,12 @@ closeBtn.addEventListener('click', function(e){
         if(confirmation) {
             accounts.splice(currentAccountIndex, 1);
 
-            // FIXME: 
-            // updateLocalStorage(accounts);
+            updateLocalStorage(accounts);
 
             logout();
         }
     }
+    
     closeUserInput.value = closePinInput.value = '';
     closeUserInput.blur();
     closePinInput.blur();

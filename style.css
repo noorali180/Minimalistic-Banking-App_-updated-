@@ -375,7 +375,7 @@ nav div {
   padding: 0 0.3rem;
   margin-top: 1rem;
 }
-/* FIXME: */
+
 .summary_label {
   font-size: 1.2rem;
   font-weight: 500;
@@ -571,6 +571,7 @@ h2 {
 .history_withdrawals_total_amount {
   color: #f5465d;
 }
+/* ------ x ------- x --------- x ----------- x ---------- x */
 
 .timer {
   font-weight: 600;
@@ -586,8 +587,8 @@ h2 {
   left: 0;
 
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
   opacity: 0;
   z-index: -1;
