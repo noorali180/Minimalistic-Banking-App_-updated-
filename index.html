@@ -14,7 +14,7 @@
     <title>The Bankist</title>
   </head>
   <body>
-    <section class="app ">
+    <section class="app hidden">
 
       <!-- TOP NAVIGATION -->
       <nav>
@@ -33,7 +33,7 @@
       </nav>
 
       <!-- DASHBOARD -->
-      <main class="dashboard hidden">
+      <main class="dashboard">
         <!-- BALANCE -->
         <div class="balance">
           <div>
@@ -118,7 +118,7 @@
       </main>
 
       <!-- HISTORY -->
-      <main class="history">
+      <main class="history hidden">
 
         <h1 class="history_label">History</h1>
 
@@ -166,7 +166,7 @@
       </main>
     </section>
 
-    <section class="initial_main hidden">
+    <section class="initial_main">
       <div class="initial">
   
         <h1 class="bank_name">The Bankist</h1>
@@ -206,10 +206,23 @@
       </div>
     </section>
 
+    <div class="overlay"></div>
 
-    <!-- <footer>
-      &copy; by Jonas Schmedtmann. Don't claim as your own :)
-    </footer> -->
+    <div class="popup signup_popup">
+      <h1>Successfully Signed Up! 🚀</h1>
+      <p>
+        Thank you, for using our services, we will be glad to serve you unstopable and better banking services. We have one of the best banking facilities, especially for youth.. 😊
+      </p>
+      <button class="popup_btn close_signup_popup">&times;</button>
+    </div>
+
+    <div class="popup login_popup">
+      <h1>Successfully Logged In! 🚀</h1>
+      <p>
+        Thank you, we are glad for having you one more time, keep using our unstopable and better banking services. We have one of the best banking facilities, especially for youth.. 😊
+      </p>
+      <button class="popup_btn close_login_popup">&times;</button>
+    </div>
 
     <script src="script.js"></script>
   </body>

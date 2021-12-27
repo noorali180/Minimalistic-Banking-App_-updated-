@@ -70,6 +70,13 @@ const containerWithdrawals = document.querySelector('#history_withdrawals_moveme
 const totalDeposits = document.querySelector('.history_deposits_total_amount');
 const totalWithdrawals = document.querySelector('.history_withdrawals_total_amount');
 
+// PopUps
+const signupPop = document.querySelector('.signup_popup');
+const signupPopBtn = document.querySelector('.close_signup_popup');
+const loginPop = document.querySelector('.login_popup');
+const loginPopBtn = document.querySelector('.close_login_popup');
+const overlay = document.querySelector('.overlay');
+
 // x----x----x----x----x----x----x----x----x-----x-----x-----x-----x-----x-----x-----x-----x
 const account1 = {
     owner: 'Noor Ali',
@@ -165,6 +172,16 @@ const createUserName = function(userName){
             .split(' ')
             .map(n => n[0])
             .join('');
+}
+
+const popSignup = function(){
+    overlay.classList.toggle('overlay_active');
+    signupPop.classList.toggle('active');
+}
+
+const popLogin = function(){
+    overlay.classList.toggle('overlay_active');
+    loginPop.classList.toggle('active');
 }
 
 //----------------------------------------------------------------------------------------------
@@ -330,8 +347,7 @@ const updateUI = function(account){
     displayWithdrawalsHistory(account);
 }
 
-updateUI(currentAccount);
-
+// logout functionality...
 const logout = function(){
     containerApp.style.opacity = 0.5;
     loginPage.style.opacity = 1;
@@ -357,6 +373,7 @@ const logout = function(){
     }, 3000);
 }
 
+// login functionality...
 const login = function(){
     initialPage.style.opacity = 0;
     loginPage.style.opacity = 1;
@@ -427,8 +444,8 @@ signupBtn.addEventListener('click', function(e){
             owner: user,
             movements: [],
             movementsDates: [],
-            deposites: [],
-            depositeDates: [],
+            deposits: [],
+            depositDates: [],
             withdraws: [],
             withdrawDates: [],
             currency: "USD",
@@ -446,8 +463,14 @@ signupBtn.addEventListener('click', function(e){
         updateUI(currentAccount);
         login();
 
+        setTimeout(() => {
+            popSignup();
+        }, 3500);
+
         if(timer) clearInterval(timer);
         timer = startLogoutTimer();
+
+        
     }
     signupUserInput.value = signupPinInput.value = signupCPinInput.value = '';
     signupUserInput.blur();
@@ -471,6 +494,10 @@ loginBtn.addEventListener('click', function(e){
     else{
         updateUI(currentAccount);
         login();
+
+        setTimeout(() => {
+            popLogin();
+        }, 3500);
 
         if(timer) clearInterval(timer);
         timer = startLogoutTimer();
@@ -653,4 +680,15 @@ historyBtn.addEventListener('click', function(e){
     setTimeout(() => {
         containerHistory.style.opacity = 1;
     }, 600);
+});
+
+// CLOSING DIALOGUE OR POPUP...
+signupPopBtn.addEventListener('click', popSignup);
+
+loginPopBtn.addEventListener('click', popLogin);
+
+overlay.addEventListener('click', function(){
+    signupPop.classList.remove('active');
+    loginPop.classList.remove('active');
+    overlay.classList.remove('overlay_active');
 });
