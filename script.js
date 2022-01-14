@@ -115,7 +115,7 @@ const account1 = {
 // const accounts = [account1];
 // localStorage.setItem("accounts",JSON.stringify(accounts));
 
-//const accounts = JSON.parse(localStorage.getItem('accounts'));
+const accounts = JSON.parse(localStorage.getItem('accounts'));
 let currentAccount, currentAccountIndex, timer;
 
 // FUNCTIONALITIES...
