@@ -112,10 +112,16 @@ const account1 = {
 };
 
 // NOTE: below two lines of codes are for default settings...
-// const accounts = [account1];
-// localStorage.setItem("accounts",JSON.stringify(accounts));
+let accounts;
+if(!localStorage.getItem('accounts')){
+    accounts = [account1];
+    localStorage.setItem("accounts",JSON.stringify(accounts));
+}
+else{
+    accounts = JSON.parse(localStorage.getItem('accounts'));
+}
 
-const accounts = JSON.parse(localStorage.getItem('accounts'));
+
 let currentAccount, currentAccountIndex, timer;
 
 // FUNCTIONALITIES...
